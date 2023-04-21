@@ -6,6 +6,7 @@ import { CallToActionButton } from "components/CallToActionButton/CallToActionBu
 import { Columns } from "components/Columns"
 import { Column } from "components/Column"
 import Image from "next/image"
+import { PropertySearch } from "components/PropertySearch"
 
 export const BlockRenderer = ({ blocks }) => {
     return blocks.map((block) => {
@@ -95,6 +96,14 @@ export const BlockRenderer = ({ blocks }) => {
                         buttonLabel={block.attributes.data.label}
                         destination={block.attributes.data.destination || "/"}
                         align={block.attributes.data.align}
+                    />
+                )
+            }
+            case 'acf/propertysearch': {
+                return (
+                    <PropertySearch
+                        key={block.id}
+
                     />
                 )
             }
