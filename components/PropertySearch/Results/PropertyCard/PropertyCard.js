@@ -5,6 +5,7 @@ import Link from "next/link"
 import numeral from "numeral"
 
 export const PropertyCard = ({ title, destination, image, bedrooms, bathrooms, price, hasParking, petFriendly }) => {
+
     return (
         <Link
             href={destination}
@@ -30,20 +31,20 @@ export const PropertyCard = ({ title, destination, image, bedrooms, bathrooms, p
             <div className="flex justify-between text-sm mt-3">
                 <div>
                     <FontAwesomeIcon icon={faBathtub} />
-                    <span className="pl-2">{bedrooms} bathrooms</span>
+                    <span className="pl-2">{bathrooms} bathrooms</span>
                 </div>
                 <div><FontAwesomeIcon icon={faBed} />
                     <span className="pl-2">{bedrooms} bedrooms</span>
                 </div>
             </div>
-            {hasParking || petFriendly &&
+            {(hasParking || petFriendly) &&
                 <div className="flex justify-between text-sm mt-3">
-                    {hasParking && <div>
+                    {!!hasParking && <div>
                         <FontAwesomeIcon icon={faCar} />
                         <span className="pl-2">parking available</span>
                     </div>
                     }
-                    {petFriendly &&
+                    {!!petFriendly &&
                         <div><FontAwesomeIcon icon={faDog} />
                             <span className="pl-2">pet friendly</span>
                         </div>
