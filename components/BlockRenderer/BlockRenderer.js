@@ -7,6 +7,9 @@ import { Columns } from "components/Columns"
 import { Column } from "components/Column"
 import Image from "next/image"
 import { PropertySearch } from "components/PropertySearch"
+import { FormspreeForm } from "components/FormspreeForm"
+import { PropertyFeatures } from "components/PropertyFeatures"
+import { Gallery } from "components/Gallery"
 
 export const BlockRenderer = ({ blocks }) => {
     return blocks.map((block) => {
@@ -50,6 +53,10 @@ export const BlockRenderer = ({ blocks }) => {
                     <Columns
                         key={block.id}
                         isStackedOnMobile={block.attributes.isStackedOnMobile}
+                        textColor={theme[block.attributes.textColor] ||
+                            block.attributes.style?.color?.text}
+                        backgroundColor={theme[block.attributes.backgroundColor] ||
+                            block.attributes.style?.color?.background}
                     >
                         <BlockRenderer
                             blocks={block.innerBlocks}
@@ -80,6 +87,16 @@ export const BlockRenderer = ({ blocks }) => {
                     />
                 )
             }
+            case 'core/gallery': {
+                return (
+                    <Gallery
+                        key={block.id}
+                        columns={block.attributes.column || 2}
+                        cropImages={block.attributes.imageCrop}
+                        items={block.innerBlocks}
+                    />
+                )
+            }
             case 'core/block':
             case 'core/group': {
                 return (
@@ -99,11 +116,31 @@ export const BlockRenderer = ({ blocks }) => {
                     />
                 )
             }
+            case 'acf/formspreeform': {
+                return (
+                    <FormspreeForm
+                        key={block.id}
+                        formId={block.attributes.data.form_id}
+                    />
+                )
+            }
             case 'acf/propertysearch': {
                 return (
                     <PropertySearch
                         key={block.id}
 
+                    />
+                )
+            }
+            case 'acf/propertyfeatures': {
+                return (
+                    <PropertyFeatures
+                        key={block.id}
+                        price={block.attributes.price}
+                        bathrooms={block.attributes.bathrooms}
+                        bedrooms={block.attributes.bedrooms}
+                        hasParking={block.attributes.has_parking}
+                        petFriendly={block.attributes.pet_friendly}
                     />
                 )
             }
